@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+  </head>
+  <body>
+    <h2>Using the Brussels OpenData API</h2>
+
+    <p>This is the list of theatres in Brussels</p>
+
+    <div id="demo">
+      <!-- the names will be added here with innerHTML-->
+    </div>
+
+    <script>
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          const data = JSON.parse(this.responseText);
+
+          const all_theatres = data.records;
+          // get an array with the name of each theatre (as strings)
+          const theatres_names = all_theatres.map(
+            theatre => theatre.fields.nom
+          );
+
+          const demo = document.getElementById("demo");
+          const demoList = demo.appendChild(document.createElement("ul"));
+          // construct a single string with all theatre names concatenated and as list elements (li):
+          // For example:
+          // <li>theatre name 1</li>
+          // <li>theatre name 2</li>
+          // <li>etc...</li>
+          document.querySelector("#demo ul").innerHTML = theatres_names
+            // add <li></li> to each name
+            .map(name => "<li>" + name + "</li>")
+            // join the array elements as a single string
+            .join("\n");
+        }
+      };
+      xhttp.open(
+        "GET",
+        "https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=theatres",
+        true
+      );
+      xhttp.send();
+    </script>
+  </body>
+</html>

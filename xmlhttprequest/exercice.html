@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+  </head>
+  <body>
+    <h2>My personnal page</h2>
+
+    <div id="menu">
+      <ul>
+        <li><a onclick="changePage(1)">Page 1</a></li>
+        <li><a onclick="changePage(2)">Page 2</a></li>
+        <li><a onclick="changePage(3)">Page 3</a></li>
+        <li><a onclick="changePage(4)">Page 4</a></li>
+      </ul>
+    </div>
+
+    <div id="mainContent">
+      Please choose a link in the menu
+    </div>
+
+    <script>
+      function changePage(newPage) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(
+              "mainContent"
+            ).innerHTML = this.responseText;
+          }
+        };
+        xhttp.responseType = "text";
+        xhttp.open("GET", "page_" + newPage + ".html", true);
+        xhttp.send();
+      }
+    </script>
+  </body>
+</html>
