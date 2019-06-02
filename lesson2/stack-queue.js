@@ -11,7 +11,7 @@
   function removeFromStack() {
     const poppedElement = stack.pop();
     rerender();
-    alert(poppedElement);
+    alert("Popped element:" + poppedElement);
   }
 
   function clearStack() {
@@ -27,7 +27,7 @@
   function removeFromQueue() {
     const poppedElement = queue.shift();
     rerender();
-    alert(poppedElement);
+    alert("Popped element:" + poppedElement);
   }
 
   function clearQueue() {
